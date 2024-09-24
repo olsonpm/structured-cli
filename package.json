@@ -1,37 +1,26 @@
 {
   "name": "structured-cli",
-  "version": "0.1.0",
-  "description": "Creates a command line interface in a very opinionated and clean manner",
-  "main": "es5.js",
+  "version": "0.2.0",
+  "description": "An opinionated approach to creating a cli",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olsonpm/create-.git"
+    "url": "https://github.com/olsonpm/structured-cli.git"
   },
   "author": "phil olson",
-  "license": "ISC",
+  "license": "SEE LICENSE IN license.txt",
   "bugs": {
-    "url": "https://github.com/olsonpm/cli-creator/issues"
+    "url": "https://github.com/olsonpm/structured-cli/issues"
   },
-  "homepage": "https://github.com/olsonpm/cli-creator#readme",
+  "homepage": "https://github.com/olsonpm/structured-cli",
   "dependencies": {
-    "app-root-path": "~1.2.0",
+    "app-root-path": "^3.1.0",
     "lodash": "^4.12.0",
     "madonna-fp": "github:olsonpm/madonna-fp#ca65bd4e0ee76d69dbc571db264aa9980387bec8",
     "madonna-function": "github:olsonpm/madonna-function#7cfd2afb4f2513b017bf197cda557591c63a67d3",
     "word-wrap": "github:olsonpm/word-wrap#5d56ebce95623d844ed7c0329763de0b30475b22"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "devDependencies": {
-    "babel-core": "^6.10.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "strip-es6-externals": "github:olsonpm/strip-es6-externals",
-    "webpack": "^1.13.1",
-    "webpack-node-externals": "^1.2.0"
   }
 }

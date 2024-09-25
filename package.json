@@ -22,5 +22,20 @@
     "madonna-fp": "github:olsonpm/madonna-fp#ca65bd4e0ee76d69dbc571db264aa9980387bec8",
     "madonna-function": "github:olsonpm/madonna-function#7cfd2afb4f2513b017bf197cda557591c63a67d3",
     "word-wrap": "github:olsonpm/word-wrap#5d56ebce95623d844ed7c0329763de0b30475b22"
+  },
+  "devDependencies": {
+    "@olsonpm/eslint-config-personal": "github:olsonpm/eslint-config-personal",
+    "eslint": "^8.57.1",
+    "prettier": "^3.3.3",
+    "prettier-eslint": "^16.3.0"
+  },
+  "eslintConfig": {
+    "extends": "@olsonpm/eslint-config-personal"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }

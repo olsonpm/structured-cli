@@ -1,17 +1,19 @@
 # Structured CLI
 
-This module allows you to easily create a clean command line interface.  You can
+This module allows you to easily create a clean command line interface. You can
 think of it as a framework that sacrifices (arguably harmful) flexibility for
 consistency and user-friendliness.
 
 ## Table of Contents
+
 - [Why does this library exist?](#why-does-this-library-exist)
 - [Simple Example](#example)
 - [Public API](#public-api)
 
 ## Why does this library exist?
+
 I believe the general purpose cli libraries out there are harmful to the
-usability of cli's in general.  This library enforces structures that should
+usability of cli's in general. This library enforces structures that should
 come by default in every cli: help, version, obvious optional vs required
 arguments, a simple and predictable format `<entry> <command> <arguments...>`,
 enforced argument types, and simple command/argument validation.
@@ -24,38 +26,40 @@ Assuming you configure [the package.json bin property](https://docs.npmjs.com/fi
 ```js
 // bin/hello-world.js
 require('structured-cli').create({
-  description: "a simple 'hello world' cli"
-  , commands: [{
-    name: 'print'
-    , fn({ loudly, times }) {
-      const out = (loudly)
-        ? 'HELLO WORLD!'
-        : 'hello world';
+  description: "a simple 'hello world' cli",
+  commands: [
+    {
+      name: 'print',
+      fn({ loudly, times }) {
+        const out = loudly ? 'HELLO WORLD!' : 'hello world'
 
-      console.log((out + '\n').repeat(times));
-    }
-    , desc: "prints 'hello world'"
-    , args: [
-      {
-        name: 'loudly'
-        , alias: 'l'
-        , desc: 'print in all caps followed by an exclamation point'
-        , type: 'boolean'
-      }, {
-        name: 'times'
-        , desc: 'repeat the string a given number of times'
-        , type: 'number'
-        , example: '<a number>'
-        , flags: ['require']
-      }
-    ]
-  }]
-});
+        console.log((out + '\n').repeat(times))
+      },
+      desc: "prints 'hello world'",
+      args: [
+        {
+          name: 'loudly',
+          alias: 'l',
+          desc: 'print in all caps followed by an exclamation point',
+          type: 'boolean',
+        },
+        {
+          name: 'times',
+          desc: 'repeat the string a given number of times',
+          type: 'number',
+          example: '<a number>',
+          flags: ['require'],
+        },
+      ],
+    },
+  ],
+})
 ```
 
 into this
 
 **help**
+
 ```sh
 $ hello-world --help
 
@@ -74,7 +78,9 @@ Commands
 
 To get help for a command, type 'hello-world <command> --help'
 ```
+
 **print help**
+
 ```sh
 $ hello-world print --help
 
@@ -89,7 +95,9 @@ Optional Arguments
   -l, --loudly   {boolean} print in all caps followed by an exclamation point
 
 ```
+
 **print**
+
 ```sh
 $ hello-world print --times 1
 hello world
@@ -101,6 +109,7 @@ HELLO WORLD!
 ```
 
 **invalid command handling**
+
 ```sh
 $ hello-world invalid
 
@@ -110,6 +119,7 @@ Error: Invalid command 'invalid'
 ```
 
 **invalid argument type handling**
+
 ```sh
 $ hello-world print --times a
 
@@ -119,7 +129,9 @@ Value: a
 
 # then displays help text
 ```
+
 **and finally invalid argument handling**
+
 ```sh
 $ hello-world print --times 1 --loudly --invalid
 
@@ -130,13 +142,14 @@ Error: Stopped parsing due to the invalid argument '--invalid'
 
 ## Public API
 
-*An asterisk (*\**) indicates an optional property*
+_An asterisk (_\*_) indicates an optional property_
 
 `require('structured-cli')` exposes one method `create` that takes a single
-[Entry](#entry) object and returns `undefined`.  The `create` method handles
+[Entry](#entry) object and returns `undefined`. The `create` method handles
 argv and logs to stdout appropriately.
 
 ### Entry
+
 ```js
 {
   description: <string>
@@ -145,6 +158,7 @@ argv and logs to stdout appropriately.
 ```
 
 ### Command
+
 ```js
 {
   name: <string>
@@ -156,11 +170,13 @@ argv and logs to stdout appropriately.
 ```
 
 #### Function Argument
+
 A command's `fn` will be called with the passed validated arguments via an
-object.  The keys will be the full name of the argument mapping to their
-passed value.  Refer to the hello-world example above for clarification.
+object. The keys will be the full name of the argument mapping to their
+passed value. Refer to the hello-world example above for clarification.
 
 ### Command Argument
+
 ```js
 {
   name: <string>
@@ -174,14 +190,15 @@ passed value.  Refer to the hello-world example above for clarification.
 ```
 
 The Command Arguments will pass through some validation including:
- - `default` cannot be declared for type 'boolean' since a boolean argument's
-   presence indicates the value 'true'.  If you want it to default to true, then
-   rename the boolean to its complement.
- - `example` is required for types 'string' and 'number' because it is used
-   to create the command usage string.
- - Likewise, `example` must not be declared for type 'boolean' since an example
-   is not applicable for boolean arguments.
 
+- `default` cannot be declared for type 'boolean' since a boolean argument's
+  presence indicates the value 'true'. If you want it to default to true, then
+  rename the boolean to its complement.
+- `example` is required for types 'string' and 'number' because it is used
+  to create the command usage string.
+- Likewise, `example` must not be declared for type 'boolean' since an example
+  is not applicable for boolean arguments.
 
 ### Valid Argument Flags
-Currently the only valid flag is `require`.  I expect this to grow.
+
+Currently the only valid flag is `require`. I expect this to grow.
